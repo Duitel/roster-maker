@@ -1,17 +1,10 @@
 # roster-maker
 
-<div id='badges'>
-    <div style="overflow:auto">
-        <div class="tech">python</div>
-        <div class="dependencies_header">Dependencies:</div>
-        <div class="dependencies">Matplotlib</div> 
-        <div class="dependencies_header">Optional:</div>
-        <div class="dependencies">Jupyter notebook</div> 
-        <div class="dependencies">IPython</div> 
-    </div>
-</div>
-
-
+![GitHub](https://img.shields.io/badge/license-MIT-succes)
+![Python](https://img.shields.io/static/v1?label=&message=python&color=orange)
+![Dependency: Matplotlib](https://img.shields.io/static/v1?label=Dependency&message=Matplotlib&color=yellow)
+![Optional dependency: Jupyter notebook](https://img.shields.io/static/v1?label=Optional%20dependency&message=Jupyter%20notebook&color=yellow)
+![Optional dependency: IPython](https://img.shields.io/static/v1?label=Optional%20dependency&message=IPython&color=yellow)
 
 Make a schedule where people are assigned to rooms and optimize the number of individuals everyone sees. Can also be used as tournament scheduler, where teams have to meet all other rounds in different rounds.
 
@@ -208,27 +201,3 @@ The matrix where each person meets each other in round number - room
 |  **Alexie** |   3 - A|        |        |   2 - D|        |   3 - A|        |   2 - D|        |        |   3 - A|   2 - D|   1 - D|   1 - D|   1 - D|        |
 
 ```
-
-
-<style>
-    .dependencies, .tech, .dependencies_header {
-        padding:3px 5px; 
-        border-radius:4px; 
-        float:left;
-        margin: 5px 2px; 
-        font-size:12px;
-    }
-    .tech{
-        background-color:#28a745; 
-        color:#fff;
-        font-size:14px;
-    }
-    .dependencies {
-        background-color:#007bff; 
-        color:#fff;
-    }
-     .dependencies_header {
-         margin-left:10px;
-         margin-right:0px;
-     }
-</style>
