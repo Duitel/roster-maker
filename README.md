@@ -1,5 +1,7 @@
 # roster-maker
 
+<div style = "background-color:#007bff">Test if inline style does work</div>
+
 <div id='badges'>
     <div style="overflow:auto">
         <div class="tech">python</div>
