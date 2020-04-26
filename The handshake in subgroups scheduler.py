@@ -5,9 +5,6 @@
 # 
 # Making a schedule/roster for people meeting each other in subgroups with the goal for each person to meet another exactly once over the different meeting rounds.
 
-# In[125]:
-
-
 class Person():
     def __init__(self, id, name, nr_persons, all_persons_names):
         if id < nr_persons: self.id = id  
@@ -73,12 +70,6 @@ class Round():
     def __str__(self):
         nl = '\n '
         return f"\n # Round { self.round_number } \n has { len(self.rooms) } rooms: \n { nl.join([room.__str__() for room in self.rooms]) } \n "
-    
-                     
-
-
-# In[155]:
-
 
 class Schedule():
     def __init__(self, max_meets_allowed, nr_rounds, nr_rooms, nr_persons_per_room, person_names=None, room_names=None):
@@ -174,28 +165,34 @@ class Schedule():
     
 
     def make_markdown_table(self, body, col_headers=None, row_headers=None):
-        """Convert a nested list to a markdown table."""   
+        """Convert a nested list to a pretty outlined markdown table."""   
+        column_width = max(len(cell) if isinstance(cell,str) else len('<br>'.join(cell)) for row in body + ([col_headers] if col_headers else []) for cell in row) + 1 # For prettifying/outlining the content in the markdown table
+        column_width = max(column_width, 5) # The column width should be at least 5 for the header row to work
+        
         if col_headers: # Begin with two header rows.
-            table = [f"|{ '|'.join(col_headers) } |"]
-            table += [f"{ ''.join('|:---:' for i in range(len(body[0]))) } | "]
+            table = [f"|{ '|'.join([' ' * (column_width-len(h)) + h for h in col_headers]) }|"]
+            table += [f"{ ''.join('|:' + '-' * (column_width-2) + ':' for i in range(len(body[0]))) }| "]
 
         # body
         for row in body:
-            try: # If the cell contains a list, make the cell a newline seperated string.
-                table += [f"| {'| '.join('<br>'.join(cell) for cell in row) }|"]
+            try: # If the cell contains a list, make the cell a newline seperated string.           
+                table += [f"| {'| '.join(' ' * (column_width-1-len('<br>'.join(cell))) + '<br>'.join(cell) for cell in row) }|"]
             except: # Cell does not contain a list.
-                table += [f"| {'| '.join(row) }|"]
+                table += [f"| {'| '.join([' ' * (column_width-len(cell)-1) + cell for cell in row]) }|"]
 
         if row_headers: # Insert a column before.
             # Depends on the presence of col-headers, the row-headers values should start after the row headers.
             start_row = 0
+            column_width = max(max(len(h) for h in row_headers) + 6,5) # 6 for compensating leading space and ** and trailing ** and space, excluding leading | 
             if col_headers:
-                table[0] = '| ' + table[0]
-                table[1] = '|:---:' + table[1]
+                table[0] = f"|{' ' * (column_width)}" + table[0]
+                table[1] = f"|:{'-' * (column_width-2)}:" + table[1]
                 start_row = 2
             for i,row in enumerate(table):
                 if i >= start_row:
-                    table[i] = f"| **{ row_headers[i-start_row] }**" + table[i]
+                    h = row_headers[i-start_row]
+                    leading_spaces = ' ' * (column_width-(len(h)+6))
+                    table[i] = f"|{ leading_spaces } **{ h }** " + table[i]
 
         nl = '\n' # f-strings do not allow a backslash, but do allow a string variable with inside a backslash
         return nl.join(table)
@@ -363,9 +360,6 @@ class Schedule():
         print(self.make_md_roadmap_per_person_table())
 
 
-# In[160]:
-
-
 # Example usage
 names = ['Daryl','Max', 'Chase', 'Rima', 'Aston', 'Jude', 'Ainsley', 'Joey', 'Manveer', 'Darcey', 'Rudy', 'Justine', 'Wren', 'Armaan', 'Elliott', 'Alexie']
 
@@ -392,3 +386,9 @@ except:
     print('It was not possible to print the schedules neatly, this means that..\n\n  ..or you are not running in jupiter notebook\n  ..or you do not have IPython pip installed\n\n')
     
 new_schedule.print_schedules()
+
+
+
+
+
+

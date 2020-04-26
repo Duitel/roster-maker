@@ -1,0 +1,2 @@
+# Ignore the checkpoints created by jupiter notebook
+**/.ipynb_checkpoints/
